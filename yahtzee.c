@@ -18,12 +18,12 @@ int print_int_array(int size, int dice[], int attempt);
 int turn(int dice[]){
     read_roll_nodrvr(6, dice);
     int i;
-    for(i = 1; i <= 3; i++){
+    for(i = 1; i < 3; i++){
         print_int_array(6, dice, i);
         if(reroll(dice)){          //user input of 0 returns 1
             return 0;              //to break out
         }    
-    }
+    }print_int_array(6, dice, i-1);
     return 0;
 }
 
@@ -206,9 +206,8 @@ int reroll(int * dice){
     printf("Which dice to reroll? ");
     
     char c;             //clear input buf
-    if(fgets(in, 100, stdin) != NULL){
-        while (((c = getchar()) != EOF) && (c != '\n'));
-    }
+    while (((c = getchar()) != EOF) && (c != '\n'));
+    fgets(in, 100, stdin);
 
     printf("\n\n");                             //get user input
     for(i = 0; i < 100 && rerolls < 6; i++){    //while in str bounds, and have die left to reroll
@@ -224,6 +223,7 @@ int reroll(int * dice){
     }
     return 0;
 }
+
 /**reads an int from stdio
  */
 int read_int(){
@@ -297,8 +297,8 @@ int main(int argc, char ** argv){
 
         //display current total
         printf("Your score so far is: %d\n\n",
-              sum_array(6, upper_section) 
-            + sum_array(7, lower_section));
+              (sum_array(6, upper_section) 
+            +  sum_array(7, lower_section)));
         print_section(6, upper_labels, upper_section);
         print_section(7, lower_labels, lower_section);
         
