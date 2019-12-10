@@ -19,8 +19,8 @@ int turn(int dice[]){
     int i;
     for(i = 1; i <= 3; i++){
         print_int_array(6, dice, i);
-        if(!reroll(dice)){          //user input of 0 returns 1
-            return 0;
+        if(reroll(dice)){          //user input of 0 returns 1
+            return 0;              //to break out
         }    
     }
     return 0;
@@ -165,7 +165,7 @@ int print_int_array(int size, int dice[], int attempt){
     int i;
     for(i = 0; i < size-2; i++){
         printf("%d ", dice[i]);
-    }
+    }printf("\n\n");
     //print last die with newline
     i++;
     printf("%d\n", dice[i]);
