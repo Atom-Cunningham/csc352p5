@@ -289,7 +289,7 @@ int main(int argc, char ** argv){
     for(z = 0; z < 10; z++){
         turn(dice);
         printf("Place dice into:\n1) Upper Section\n2) Lower Section\n\n");
-        selection = get_section();
+        selection = get_section(2);
         printf("got selection");
         if(selection == 1){
             upper_entry(dice, upper_section);
