@@ -80,16 +80,19 @@ void print_int_array(int size, int dice[], int attempt){
  */
 int reroll(int * dice){
 
+    char in[100];
+
+    int rerolls = 0;
     int idx;
     int i = 0;
-    scanf("die to reroll %d", &idx);
-    for(i = 0; idx !=0 && i < 5; i++){
-        printf("die roll idx %d\ndie = %d", idx, dice[idx]);
-        if(idx == 0){
-            break;
+    fgets(in, 100, stdin);                      //get user input
+    for(i = 0; i < 100 && rerolls < 6; i++){    //while in str bounds, and have die left to reroll
+        idx = in[i] - '0' - 1;                  //player refers to idx 0 as 1 ect
+        if(is_valid_die_idx(idx)){              //check idx is valid index
+            if(idx == 0){return 0;}             //0 breaks out
+            rerolls++;                           
+            dice[idx] = get_random_die();       //reset idx
         }
-        dice[idx] = get_random_die();
-        scanf("die to reroll %d", &idx);
     }
     return 0;
 }
@@ -106,7 +109,9 @@ int main(int argc, char ** argv){
     read_roll_nodrvr(6, dice);
     print_int_array(6, dice, 1);
     reroll(dice);
+    print_int_array(6, dice, 1);
     reroll(dice);
+    print_int_array(6, dice, 1);
     return 0;
 }
 
