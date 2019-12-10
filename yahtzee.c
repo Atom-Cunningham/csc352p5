@@ -224,7 +224,7 @@ int get_section(){
     int selection = 0;
     printf("Place dice into:\n1) Upper Section\n2) Lower Section\n\n");
     while(selection != 1 && selection !=2){
-        scanf("Selection? %d\n\n", selection);
+        scanf("Selection? %d\n\n", &selection);
     }
     return selection;
 }
@@ -236,7 +236,7 @@ int upper_entry(int * dice, int * section){
     int selection = 0;
         scanf("Selection? %d\n\n", &selection);
     while( selection < 1 || selection > 6){
-        scanf("Selection? %d\n\n", %selection);
+        scanf("Selection? %d\n\n", &selection);
     }
 
     section[selection] = get_sum(selection, dice);
