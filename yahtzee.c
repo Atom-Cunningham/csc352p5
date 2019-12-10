@@ -198,14 +198,16 @@ void print_section(int size, char ** labels, int * section){
  */
 int reroll(int * dice){
 
-    char in[100];
+    char in[64];
+    int i;
+    for(i = 0; i<64; i++){
+        in[i] = 0;
+    }
 
     int rerolls = 0;
     int idx;
     int i = 0;
     printf("Which dice to reroll? ");
-    
-    char c;             //clear input buf
     fgets(in, 100, stdin);
 
     printf("\n\n");                             //get user input
