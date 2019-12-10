@@ -165,10 +165,10 @@ int print_int_array(int size, int dice[], int attempt){
     int i;
     for(i = 0; i < size-2; i++){
         printf("%d ", dice[i]);
-    }printf("\n\n");
+    }
     //print last die with newline
     i++;
-    printf("%d\n", dice[i]);
+    printf("%d\n\n", dice[i]);
 
     return 0;
 }
@@ -202,7 +202,9 @@ int reroll(int * dice){
     int rerolls = 0;
     int idx;
     int i = 0;
-    fgets(in, 100, stdin);                      //get user input
+    printf("Which dice to reroll? ");
+    fgets(in, 100, stdin);
+    printf("\n\n");                             //get user input
     for(i = 0; i < 100 && rerolls < 6; i++){    //while in str bounds, and have die left to reroll
         idx = in[i] - '0';                  
         if(idx == 0){return 1;}                 //0 breaks out
@@ -225,6 +227,7 @@ int get_section(){
     printf("Place dice into:\n1) Upper Section\n2) Lower Section\n\n");
     while(selection != 1 && selection !=2){
         scanf("Selection? %d\n\n", &selection);
+        printf("selection read:%d\n", selection);
     }
     return selection;
 }
@@ -275,7 +278,7 @@ int main(int argc, char ** argv){
     int z;
     for(z = 0; z < 10; z++){
         turn(dice);
-        selection = get_section() - '1' + 1;
+        selection = get_section();
         printf("got selection");
         if(selection == 1){
             upper_entry(dice, upper_section);
