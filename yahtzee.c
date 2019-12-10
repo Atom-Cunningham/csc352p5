@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 
-
+int print_int_array(int size, int dice[], int attempt);
 /***********************
  * game rules
  */
@@ -66,7 +66,7 @@ int get_sum(int num, int * dice){
 /**returns the sum of the integers in an array
  * takes the array size and the array
  */
-int sum_array(int size, int arr){
+int sum_array(int size, int * arr){
     int i;
     int sum = 0;
     for(i = 0; i < size; i++){
@@ -152,7 +152,7 @@ int read_roll_nodrvr(int size, int dice[]){
  * takes the size of the array, and an int array
  * returns 0
  */
-void print_int_array(int size, int dice[], int attempt){
+int print_int_array(int size, int dice[], int attempt){
     char * count = "";
     if(attempt == 2){
         count = "second ";
@@ -169,6 +169,8 @@ void print_int_array(int size, int dice[], int attempt){
     //print last die with newline
     i++;
     printf("%d\n", dice[i]);
+
+    return 0;
 }
 
 /**prints out a section, with its labels and current entries
@@ -232,9 +234,9 @@ int upper_entry(int * dice, int * section){
 
     //get selection
     int selection = 0;
-        scanf("Selection? %d\n\n", selection);
+        scanf("Selection? %d\n\n", &selection);
     while( selection < 1 || selection > 6){
-        scanf("Selection? %d\n\n", selection);
+        scanf("Selection? %d\n\n", %selection);
     }
 
     section[selection] = get_sum(selection, dice);
@@ -245,12 +247,10 @@ int lower_entry(int * section){
     printf("1) Three of a Kind\n2) Four of a Kind\n3) Small Straight\n4) Large Strait\n5) Full House\n6) Yahtzee\n7) Chance:\n\n");
     //get selection
     int selection = 0;
-        scanf("Selection? %d\n\n", selection);
+        scanf("Selection? %d\n\n", &selection);
     while( selection < 1 || selection > 7){
-        scanf("Selection? %d\n\n", selection);
+        scanf("Selection? %d\n\n", &selection);
     }
-
-
 }
 
 int main(int argc, char ** argv){
@@ -273,7 +273,7 @@ int main(int argc, char ** argv){
 
     int selection = 0;
     int z;
-        while(z = 0; z < 10; z++){
+    for(z = 0; z < 10; z++){
         turn(dice);
         selection = get_section();
         if(selection == 1){
