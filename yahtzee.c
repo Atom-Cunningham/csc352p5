@@ -206,7 +206,6 @@ int reroll(int * dice){
     printf("Which dice to reroll? ");
     
     char c;             //clear input buf
-    while (((c = getchar()) != EOF) && (c != '\n'));
     fgets(in, 100, stdin);
 
     printf("\n\n");                             //get user input
@@ -227,12 +226,10 @@ int reroll(int * dice){
 /**reads an int from stdio
  */
 int read_int(){
-    char buf [64];
-    char c;                         //clear input buf
-    if(fgets(buf, 100, stdin) != NULL){
-        while (((c = getchar()) != EOF) && (c != '\n'));
-    }
-    return buf[0] - '1' + 1;
+    char buf[64];
+    int i;
+    for (i = 0; i < 64; i++);
+    return fgets(buf, 100, stdin)[0] - '1' + 1;
 }
 
 /**accepts a 1 or 2 as user input
