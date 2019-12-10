@@ -275,7 +275,8 @@ int main(int argc, char ** argv){
     int z;
     for(z = 0; z < 10; z++){
         turn(dice);
-        selection = get_section();
+        selection = get_section() - '1' + 1;
+        printf("got selection");
         if(selection == 1){
             upper_entry(dice, upper_section);
         }
@@ -283,7 +284,7 @@ int main(int argc, char ** argv){
         //display current total
         printf("Your score so far is: %d\n\n",
               sum_array(6, upper_section) 
-            + sum_array(6, lower_section));
+            + sum_array(7, lower_section));
         print_section(6, upper_labels, upper_section);
         print_section(7, lower_labels, lower_section);
         
