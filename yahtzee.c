@@ -30,10 +30,13 @@ int get_random_die(){
     return (rand() % (6-1 + 1)) + 1; //STDLIB call
 }
 
-int read_roll_nodrvr(int * dice){
+int read_roll_nodrvr(int dice[]){
     int i;
+    int rand;
     for(i = 0; i < 6; i++){
-        dice[i] = get_random_die();
+        rand = get_random_die();
+        dice[i] = rand;
+        printf("%s %d = %d\n" "random", i, rand);
     }
     return 0;
 }
