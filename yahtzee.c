@@ -82,14 +82,14 @@ int reroll(int * dice){
 
     int idx;
     int i = 0;
-    scanf("die to reroll %d", idx);
+    scanf("die to reroll %d", &idx);
     for(i = 0; idx !=0 && i < 5; i++){
         printf("die roll idx %d\ndie = %d", idx, dice[idx]);
         if(idx == 0){
             break;
         }
         dice[idx] = get_random_die();
-        scanf("die to reroll %d", idx);
+        scanf("die to reroll %d", &idx);
     }
     return 0;
 }
@@ -104,7 +104,7 @@ int main(int argc, char ** argv){
     int dice[5];
 
     read_roll_nodrvr(6, dice);
-    print_int_array(6, dice);
+    print_int_array(6, dice, 1);
     return 0;
 }
 
