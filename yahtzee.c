@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <time.h>
 
 int print_int_array(int size, int dice[], int attempt);
 /***********************
@@ -17,7 +18,7 @@ int print_int_array(int size, int dice[], int attempt);
 int turn(int dice[]){
     read_roll_nodrvr(6, dice);
     int i;
-    for(i = 1; i <= 3; i++){
+    for(i = 1; i < 3; i++){
         print_int_array(6, dice, i);
         if(reroll(dice)){          //user input of 0 returns 1
             return 0;              //to break out
@@ -223,10 +224,11 @@ int reroll(int * dice){
  * returns the input, or 0 if invalid
  */
 int get_section(){
-    int selection = 0;
+    char str[100];
+    int selection = fgets(str, 100, stdin)[0] - '1' + 1;
     printf("Place dice into:\n1) Upper Section\n2) Lower Section\n\n");
     while(selection != 1 && selection !=2){
-        scanf("Selection? %d\n\n", &selection);
+        selection = fgets(str, 100, stdin)[0] - '1' + 1;
         printf("selection read:%d\n", selection);
     }
     return selection;
@@ -257,11 +259,13 @@ int lower_entry(int * section){
 }
 
 int main(int argc, char ** argv){
+    //seed random
+    srand(time(0));
+
     //create necessary arrays
     int dice[5];
     char * upper_labels[6] = {"Ones:","Twos:","Threes:","Fours:","Fives:","Sixes:"};
     int    upper_section[6];
-
     char * lower_labels[7] = {"Three of a Kind:","Four of a Kind:","Small Straight:",
                              "Large Strait:","Full House:","Yahtzee:","Chance:"};
     int    lower_section[6];
