@@ -89,10 +89,10 @@ int reroll(int * dice){
     for(i = 0; i < 100 && rerolls < 6; i++){    //while in str bounds, and have die left to reroll
         idx = in[i] - '0';                  
         if(idx == 0){return 0;}                 //0 breaks out
-        idx++;                                  //player refers to idx 0 as 1 ect
-        printf("idx = %d", idx);
+        idx--;                                  //player refers to idx 0 as 1 ect
+        
         if(is_valid_die_idx(idx)){              //check idx is valid index
-            
+            printf("idx = %d\n", idx);
             rerolls++;                           
             dice[idx] = get_random_die();       //reset idx
         }
