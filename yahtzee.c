@@ -30,6 +30,9 @@ int get_random_die(){
     return (rand() % (6-1 + 1)) + 1; //STDLIB call
 }
 
+/**
+ * read roll
+ */
 int read_roll_nodrvr(int dice[]){
     int i;
     int rand;
@@ -42,15 +45,35 @@ int read_roll_nodrvr(int dice[]){
 }
 
 /**
- * read roll
+ * user output
  */
+
+/**prints the contents of an integer array
+ * takes the size of the array, and an int array
+ * returns 0
+ */
+void print_int_array(int max, int dice[]){
+    printf("Your roll:\n\n");
+
+    int i;
+    for(i = 0; i < max-1; i++;){
+        printf("%d ", dice[i]);
+    }
+    //print last die with newline
+    i++;
+    printf("%d\n", dice[i]);
+}
+
+/**
+ * user input
+ */
+
+
 int main(int argc, char ** argv){
     int dice[5];
-    int i;
+
     read_roll_nodrvr(dice);
-    for(i = 0; i < 6; i++){
-        printf("%d\n", dice[i]);
-    }
+    print_int_array(6, dice);
     return 0;
 }
 
