@@ -45,7 +45,7 @@ int main(int argc, char ** argv){
     int dice[5];
     int i;
     for(i = 0; i < 6; i++){
-        printf("%d", dice[i]);
+        printf("%d\n", dice[i]);
     }
     return 0;
 }
