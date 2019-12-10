@@ -276,7 +276,7 @@ int main(int argc, char ** argv){
     int    upper_section[6];
     char * lower_labels[7] = {"Three of a Kind:","Four of a Kind:","Small Straight:",
                              "Large Strait:","Full House:","Yahtzee:","Chance:"};
-    int    lower_section[6];
+    int    lower_section[7];
 
     //initialize zeroes in score sections
     int i = 0;
@@ -284,7 +284,7 @@ int main(int argc, char ** argv){
         upper_section[i] = 0;
         lower_section[i] = 0;
     }
-    lower_section[++i] = 0;
+    lower_section[6] = 0;
 
     int selection = 0;
     int z;
