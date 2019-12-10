@@ -42,10 +42,10 @@ int read_roll_nodrvr(int * dice){
  * read roll
  */
 int main(int argc, char ** argv){
-    int * dice[5];
+    int dice[5];
     int i;
     for(i = 0; i < 6; i++){
-        printf("%d", &dice[i]);
+        printf("%d", dice[i]);
     }
     return 0;
 }
