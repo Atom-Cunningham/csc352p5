@@ -86,8 +86,9 @@ int reroll(int * dice){
     int idx;
     int i = 0;
     fgets(in, 100, stdin);                      //get user input
-    for(i = 0; i < 100 && rerolls < 6; i++){    //while in str bounds, and have die left to reroll
+    for(i = 0; i < 100 && rerolls < 6 && in[i] != '\0'; i++){    //while in str bounds, and have die left to reroll
         idx = in[i] - '0' - 1;                  //player refers to idx 0 as 1 ect
+        printf("idx = %d", idx);
         if(is_valid_die_idx(idx)){              //check idx is valid index
             if(idx == 0){return 0;}             //0 breaks out
             rerolls++;                           
