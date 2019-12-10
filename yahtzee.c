@@ -31,7 +31,8 @@ int get_random_die(){
 }
 
 int read_roll_nodrvr(int * dice){
-    for (int i = 0; i < 6; i++){
+    int i;
+    for(i = 0; i < 6; i++){
         dice[i] = get_random_die();
     }
     return 0;
@@ -42,8 +43,9 @@ int read_roll_nodrvr(int * dice){
  */
 int main(int argc, char ** argv){
     int * dice[5];
-    for (int i = 0; i < 6; i++){
-        printf("%d",dice[i]);
+    int i;
+    for(i = 0; i < 6; i++){
+        printf("%d",&dice[i]);
     }
     return 0;
 }
