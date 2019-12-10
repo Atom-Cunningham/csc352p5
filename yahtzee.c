@@ -36,7 +36,7 @@ int read_roll_nodrvr(int dice[]){
     for(i = 0; i < 6; i++){
         rand = get_random_die();
         dice[i] = rand;
-        printf("%s %d = %d\n" "random", i, rand);
+        printf("%s %d = %d\n", "random", i, rand);
     }
     return 0;
 }
