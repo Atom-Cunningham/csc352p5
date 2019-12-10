@@ -105,6 +105,8 @@ int main(int argc, char ** argv){
 
     read_roll_nodrvr(6, dice);
     print_int_array(6, dice, 1);
+    reroll(dice);
+    reroll(dice);
     return 0;
 }
 
