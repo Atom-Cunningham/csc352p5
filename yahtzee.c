@@ -18,7 +18,7 @@ int print_int_array(int size, int dice[], int attempt);
 int turn(int dice[]){
     read_roll_nodrvr(6, dice);
     int i;
-    for(i = 1; i < 3; i++){
+    for(i = 1; i <= 3; i++){
         print_int_array(6, dice, i);
         if(reroll(dice)){          //user input of 0 returns 1
             return 0;              //to break out
@@ -204,7 +204,12 @@ int reroll(int * dice){
     int idx;
     int i = 0;
     printf("Which dice to reroll? ");
-    fgets(in, 100, stdin);
+    
+    char c;             //clear input buf
+    if(fgets(in, 100, stdin) != NULL){
+        while (((c = getchar()) != EOF) && (c != '\n'));
+    }
+
     printf("\n\n");                             //get user input
     for(i = 0; i < 100 && rerolls < 6; i++){    //while in str bounds, and have die left to reroll
         idx = in[i] - '0';                  
@@ -219,31 +224,36 @@ int reroll(int * dice){
     }
     return 0;
 }
+/**reads an int from stdio
+ */
+int read_int(){
+    char buf [64];
+    char c;                         //clear input buf
+    if(fgets(buf, 100, stdin) != NULL){
+        while (((c = getchar()) != EOF) && (c != '\n'));
+    }
+    return buf[0] - '1' + 1;
+}
 
 /**accepts a 1 or 2 as user input
  * returns the input, or 0 if invalid
  */
-int get_section(){
+int get_section(int max){
     char str[100];
-    int selection = fgets(str, 100, stdin)[0] - '1' + 1;
-    printf("Place dice into:\n1) Upper Section\n2) Lower Section\n\n");
-    while(selection != 1 && selection !=2){
-        selection = fgets(str, 100, stdin)[0] - '1' + 1;
+    int selection = read_int();
+    while(selection < 0 || selection > max){
+        printf("Selection?"); 
+        selection = read_int();
         printf("selection read:%d\n", selection);
     }
+    printf("\n\n");
     return selection;
 }
 
 int upper_entry(int * dice, int * section){
     printf("Place dice into:\n1) Ones\n2) Twos\n3) Threes\n4) Fours\n5) Fives\n6) Sixes\n\n");
-
     //get selection
-    int selection = 0;
-        scanf("Selection? %d\n\n", &selection);
-    while( selection < 1 || selection > 6){
-        scanf("Selection? %d\n\n", &selection);
-    }
-
+    int selection = get_section(6);
     section[selection] = get_sum(selection, dice);
 }
 
@@ -251,11 +261,7 @@ int upper_entry(int * dice, int * section){
 int lower_entry(int * section){
     printf("1) Three of a Kind\n2) Four of a Kind\n3) Small Straight\n4) Large Strait\n5) Full House\n6) Yahtzee\n7) Chance:\n\n");
     //get selection
-    int selection = 0;
-        scanf("Selection? %d\n\n", &selection);
-    while( selection < 1 || selection > 7){
-        scanf("Selection? %d\n\n", &selection);
-    }
+    int selection = get_section(7);
 }
 
 int main(int argc, char ** argv){
@@ -282,6 +288,7 @@ int main(int argc, char ** argv){
     int z;
     for(z = 0; z < 10; z++){
         turn(dice);
+        printf("Place dice into:\n1) Upper Section\n2) Lower Section\n\n");
         selection = get_section();
         printf("got selection");
         if(selection == 1){
