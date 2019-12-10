@@ -56,7 +56,7 @@ void print_int_array(int max, int dice[]){
     printf("Your roll:\n\n");
 
     int i;
-    for(i = 0; i < max-1; i++;){
+    for(i = 0; i < max-1; i++){
         printf("%d ", dice[i]);
     }
     //print last die with newline
