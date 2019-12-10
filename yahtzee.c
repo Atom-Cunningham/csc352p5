@@ -206,7 +206,6 @@ int reroll(int * dice){
 
     int rerolls = 0;
     int idx;
-    int i = 0;
     printf("Which dice to reroll? ");
     fgets(in, 100, stdin);
 
