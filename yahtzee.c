@@ -47,6 +47,7 @@ int read_roll_nodrvr(int dice[]){
 int main(int argc, char ** argv){
     int dice[5];
     int i;
+    read_roll_nodrvr(dice);
     for(i = 0; i < 6; i++){
         printf("%d\n", dice[i]);
     }
