@@ -18,7 +18,7 @@
  */ 
 unsigned char get_random_byte(int max) {
          unsigned char c;
-         get_random_bytes(&c, 1);
+         //get_random_bytes(&c, 1);
          return c%max;
 }
 
