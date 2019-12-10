@@ -98,7 +98,7 @@ int sum_of_a_kind(int num, int * dice){
             if(count == 5){         //yahtzee
                 return 50;
             }
-            return get_sum(curr, dice);
+            return get_sum(curr + 1, dice);
         }
     }
     return 0;
