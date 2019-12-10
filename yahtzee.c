@@ -101,7 +101,7 @@ int reroll(int * dice){
 /**returns true if the integer is between 0 and 6 inclusive
  */
 int is_valid_die_idx(int die){
-    return die <= 0 && die <7;
+    return die >= 0 && die <7;
 }
 
 int main(int argc, char ** argv){
