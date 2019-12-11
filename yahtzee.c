@@ -61,6 +61,7 @@ int get_sum(int num, int * dice){
             sum += num;
         }
     }
+    printf("sum is: %d\n",sum);
     return sum;
 }
 
@@ -255,6 +256,7 @@ int upper_entry(int * dice, int * section){
     int selection = get_section(6);
     selection -= 1;     //cardinal to idx
     section[selection] = get_sum(selection, dice);
+    printf("selection %d set to %d", selection, section[selection]);
 }
 
 
