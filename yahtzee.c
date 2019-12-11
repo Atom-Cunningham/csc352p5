@@ -213,16 +213,16 @@ int read_roll_nodrvr(int size, int dice[]){
  */
 int print_int_array(int size, int dice[], int attempt){
     char * count = "";
-    if(attempt == 2){
-        count = "second ";
+    if(attempt == 1){
+        count = "second";
     }
-    if (attempt == 3){
-        count = "third ";
+    if (attempt == 2){
+        count = "third";
     }
     printf("Your %s roll:\n\n", count);
 
     int i;
-    for(i = 0; i < size-2; i++){
+    for(i = 0; i < size-1; i++){
         printf("%d ", dice[i]);
     }
     //print last die with newline
