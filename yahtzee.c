@@ -3,6 +3,7 @@
 #include <ctype.h>
 #include <time.h>
 
+int cmpfunc (const void * a, const void * b);
 int print_int_array(int size, int dice[], int attempt);
 /***********************
  * game rules
@@ -141,7 +142,8 @@ int get_instances_of(int num, int size, int * dice){
     }return count;
 }
 
-
+/**compares two ints
+ */
 int cmpfunc (const void * a, const void * b) {
    return ( *(int*)a - *(int*)b );
 }
