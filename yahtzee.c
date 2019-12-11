@@ -258,7 +258,7 @@ void print_section(int size, char ** labels, int * section){
     int i;
     int buffer;
     for(i = 0; i < size; i++){
-        buffer = (i%2 == 0);
+        buffer = (i%2 == 1);
         if(section[i] >= 0){
             print_entry_occupied(labels[i], section[i], buffer);
         }else{
@@ -288,17 +288,18 @@ int reroll(int * dice){
     int idx;
     printf("Which dice to reroll? ");
     fgets(in, 100, stdin);
-
-    printf("\n\n");                             //get user input
+    printf("\n");                               //get user input
     for(i = 0; i < 100 && rerolls < 6; i++){    //while in str bounds, and have die left to reroll
         idx = in[i] - '0';                  
         if(idx == 0){return 1;}                 //0 breaks out
         idx--;                                  //player refers to idx 0 as 1 ect
         
+        printf("idx before is_valid = %d\n",idx);
         if(is_valid_die_idx(idx)){              //check idx is valid index
             printf("idx = %d\n", idx);
             rerolls++;                           
-            dice[idx] = get_random_die();       //reset idx
+            dice[idx] = get_random_die();       //reset@ idx
+            printf("idx after get random die = %d\n",idx);
         }
     }
     return 0;
@@ -320,7 +321,7 @@ int get_section(int max){
     char str[100];
     int selection = -1;
     while(selection < 0 || selection > max){
-        printf("Selection?"); 
+        printf("Selection? "); 
         selection = read_int();
         printf("selection read:%d\n", selection);
     }
