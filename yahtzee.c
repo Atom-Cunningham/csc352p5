@@ -298,7 +298,7 @@ int reroll(int * dice){
         if(is_valid_die_idx(idx)){              //check idx is valid index
             printf("idx = %d\n", idx);
             rerolls++;                           
-            dice[idx] = get_random_die();       //reset@ idx
+            dice[idx] = 11;//get_random_die();       //reset@ idx
             printf("idx after get random die = %d\n",idx);
         }
     }
