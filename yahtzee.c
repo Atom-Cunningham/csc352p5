@@ -41,7 +41,7 @@ int game_over(int size, int * section){
 /**returns true if the integer is between 0 and 6 inclusive
  */
 int is_valid_die_idx(int die){
-    return die >= 0 && die <7;
+    return die >= 0 && die <= 5;
 }
 
 /***********************
@@ -53,7 +53,7 @@ int is_valid_die_idx(int die){
  * takes an integer, and int[]
  * returns the sum
  */
-int get_sum(int num, int * dice){
+int get_sum_of_dicetype(int num, int * dice){
     int sum = 0;
     int i;
     for(i = 0; i < 6; i++){
@@ -79,42 +79,94 @@ int sum_array(int size, int * arr){
 }
 
 /**looks for num instances of any number in the array
- * 3,4 instances sums, 5 scores 50 (yahtzee)
+ * 3,4 instances sums all dice, 5 scores 50 (yahtzee)
  * 
  * returns 0 on failure;
  */
-int sum_of_a_kind(int num, int * dice){
+int x_of_a_kind(int num, int * dice){
     int count;
     int curr;                                //current die
     int i;
     int j;
     for(curr = 1; curr <= 6; curr++){        //loop through die possibilities
         count = 0;
-        for(j = 0; j < 6; j++){     //loop through dice
+        for(j = 0; j < 5; j++){     //loop through dice
             if(dice[j] == i){
                 count++;
             }    
         }
-        if(count == num){
+        if(count >= num){
             if(count == 5){         //yahtzee
                 return 50;
             }
-            return get_sum(curr + 1, dice);
+            return sum_array(5, dice);
         }
     }
     return 0;
 }
 
-//sum of a kind 3 != 0
-//&& sum of a kind 2 != 0
+/**checks for two of a kind, and three of another kind
+ * returns 25 if found both
+ * else 0
+ */
+int full_house(int * dice){
+    qsort(dice, 5, sizeof(int), strcmp());
+    
+    int count = 0;
+    int two_of = 0;
+    int three_of = 0;
+    int i = 0;
+    for (i = 1; i <= 6; i++){//loop through possibilities
+        count = get_instances_of(i, 5, dice);
+        if(count == 2){
+            two_of = i;
+        }
+        if (count == 3){
+            three_of = i;
+        }
+    }
+    if(two_of && three_of){
+        return 25;
+    }return 0;
+}
 
-//&&sum of a kind 3 != soak2 +soak2/2
+/**given an int, count the number of times that in appears in a list
+ */
+int get_instances_of(int num, int size, int * dice){
+    //TODO DRY implement this in x_of_a_kind if you feel like it
+    int i = 0;
+    int count = 0;
+    for (i = 0; i < size; i++){
+        if (dice[i] == num){count++;}
+    }return count;
+}
 
 
 
 
-//qsort dice
-//small straight 4
+
+
+/**if there are (int length) ascending dice in a row 
+ * return an appropriate score, else 0;
+ */
+int straight(int length, int * dice){
+    qsort(dice, 6, sizeof(int),strcmp());
+    int i = 0;
+    int count = 0;
+    while(dice[i] < dice[i+1] && i++ < 5){
+        count++;
+    }i++; //count the last one
+
+    if(count >= length){
+        if (length == 4){
+            return 30;
+        }
+        if (length == 5){
+            return 40;
+        }
+    }
+    return 0;
+}
 //large straight 5
 
 /**********************
@@ -180,14 +232,35 @@ int print_int_array(int size, int dice[], int attempt){
  */
 void print_section(int size, char ** labels, int * section){
     int i;
+    int buffer;
     for(i = 0; i < size; i++){
-        if(i%2 == 0){
-            printf("%s %d", labels[i], section[i]);
-        }
-        else{
-            printf("%22s %d\n", labels[i], section[i]);
+        buffer = (i%2 == 0);
+        if(section[i] >= 0){
+            print_entry_occupied(labels[i], section[i], buffer);
+        }else{
+            print_entry_empty(labels[i], buffer);
         }
     }printf("\n\n");
+}
+
+/**prints a section and its score
+ */
+void print_entry_occupied(char* label, int score, int buffer){
+    if (buffer){
+        printf("%22s %d\n", label, score);
+    }else{
+        printf("%s %d", label, score);
+    }
+}
+
+/**
+ */
+void print_entry_empty(char* label, int buffer){
+    if (buffer){
+        printf("%22s\n", label);
+    }else{
+        printf("%s", label);
+    }
 }
 
 
@@ -231,7 +304,7 @@ int reroll(int * dice){
 int read_int(){
     char buf[64];
     int i;
-    for (i = 0; i < 64; i++);
+    for (i = 0; i < 64; i++){buf[i] = 0};
     return fgets(buf, 100, stdin)[0] - '1' + 1;
 }
 
@@ -240,7 +313,7 @@ int read_int(){
  */
 int get_section(int max){
     char str[100];
-    int selection = read_int();
+    int selection = -1;
     while(selection < 0 || selection > max){
         printf("Selection?"); 
         selection = read_int();
@@ -254,18 +327,18 @@ int upper_entry(int * dice, int * section){
     printf("Place dice into:\n1) Ones\n2) Twos\n3) Threes\n4) Fours\n5) Fives\n6) Sixes\n\n");
     //get selection
     int selection = get_section(6);
-    selection -= 1;     //cardinal to idx
-    section[selection] = get_sum(selection, dice);
+    section[selection-1] = get_sum_of_dicetype(selection, dice);//cardinal to idx
     printf("selection %d set to %d", selection, section[selection]);
+    return 0;
 }
 
 
-int lower_entry(int * section){
+int lower_entry(int * dice,int * section){
     printf("1) Three of a Kind\n2) Four of a Kind\n3) Small Straight\n4) Large Strait\n5) Full House\n6) Yahtzee\n7) Chance:\n\n");
     //get selection
     int selection = get_section(7);
-    selection -= 1;    //cardinal to idx
-
+    
+    return 0;
 }
 
 int main(int argc, char ** argv){
@@ -282,11 +355,12 @@ int main(int argc, char ** argv){
 
     //initialize zeroes in score sections
     int i = 0;
+    //set the section values to -1;
     for(i = 0; i < 6; i++){
-        upper_section[i] = 0;
-        lower_section[i] = 0;
+        upper_section[i] = -1;
+        lower_section[i] = -1;
     }
-    lower_section[6] = 0;
+    lower_section[6] = -1;
 
     int selection = 0;
     int z;
@@ -296,6 +370,8 @@ int main(int argc, char ** argv){
         selection = get_section(2);
         if(selection == 1){
             upper_entry(dice, upper_section);
+        }else if(selection == 2){
+            lower_entry(dice, lower_section);
         }
 
         //display current total
