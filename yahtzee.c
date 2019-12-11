@@ -110,7 +110,7 @@ int x_of_a_kind(int num, int * dice){
  * else 0
  */
 int full_house(int * dice){
-    qsort(dice, 5, sizeof(int), strcmp());
+    qsort(dice, 5, sizeof(int), cmpfunc);
     
     int count = 0;
     int two_of = 0;
@@ -142,7 +142,9 @@ int get_instances_of(int num, int size, int * dice){
 }
 
 
-
+int cmpfunc (const void * a, const void * b) {
+   return ( *(int*)a - *(int*)b );
+}
 
 
 
@@ -150,7 +152,7 @@ int get_instances_of(int num, int size, int * dice){
  * return an appropriate score, else 0;
  */
 int straight(int length, int * dice){
-    qsort(dice, 6, sizeof(int),strcmp());
+    qsort(dice, 6, sizeof(int),cmpfunc);
     int i = 0;
     int count = 0;
     while(dice[i] < dice[i+1] && i++ < 5){
@@ -228,21 +230,6 @@ int print_int_array(int size, int dice[], int attempt){
     return 0;
 }
 
-/**prints out a section, with its labels and current entries
- */
-void print_section(int size, char ** labels, int * section){
-    int i;
-    int buffer;
-    for(i = 0; i < size; i++){
-        buffer = (i%2 == 0);
-        if(section[i] >= 0){
-            print_entry_occupied(labels[i], section[i], buffer);
-        }else{
-            print_entry_empty(labels[i], buffer);
-        }
-    }printf("\n\n");
-}
-
 /**prints a section and its score
  */
 void print_entry_occupied(char* label, int score, int buffer){
@@ -262,6 +249,22 @@ void print_entry_empty(char* label, int buffer){
         printf("%s", label);
     }
 }
+
+/**prints out a section, with its labels and current entries
+ */
+void print_section(int size, char ** labels, int * section){
+    int i;
+    int buffer;
+    for(i = 0; i < size; i++){
+        buffer = (i%2 == 0);
+        if(section[i] >= 0){
+            print_entry_occupied(labels[i], section[i], buffer);
+        }else{
+            print_entry_empty(labels[i], buffer);
+        }
+    }printf("\n\n");
+}
+
 
 
 /****************************************
@@ -304,7 +307,7 @@ int reroll(int * dice){
 int read_int(){
     char buf[64];
     int i;
-    for (i = 0; i < 64; i++){buf[i] = 0};
+    for (i = 0; i < 64; i++){buf[i] = 0;};
     return fgets(buf, 100, stdin)[0] - '1' + 1;
 }
 
