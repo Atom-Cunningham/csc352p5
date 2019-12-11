@@ -19,12 +19,12 @@ int print_int_array(int size, int dice[], int attempt);
 int turn(int dice[]){
     read_roll_nodrvr(6, dice);
     int i;
-    for(i = 1; i < 3; i++){
-        print_int_array(6, dice, i);
+    for(i = 0; i < 3; i++){
+        print_int_array(5, dice, i);
         if(reroll(dice)){          //user input of 0 returns 1
             return 0;              //to break out
         }    
-    }print_int_array(6, dice, i-1);
+    }print_int_array(5, dice, i);
     return 0;
 }
 
