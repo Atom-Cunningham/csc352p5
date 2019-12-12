@@ -28,16 +28,23 @@ int turn(int dice[]){
     return 0;
 }
 
+/**returns true if the section has no empty entries left
+ */
+int section_is_full(int size, int * section){
+    int i = 0;
+    for (i; i< size; i++){
+        if (section[i] < 0){
+            return 0;
+        }
+    }
+    return 1;
+}
 
 /**returns a 1 if all categories in the scoring section are non-zero
  */
-int game_over(int size, int * section){
-    int i;
-    for(i = 0; i < size; i++){
-        if(section[i] == 0){        //empty entry
-            return 0;
-        }
-    }return 1;
+int game_over(int * upper_section, int * lower_section){
+    return (section_is_full(6, upper_section)
+        &&  section_is_full(7, lower_section));
 }
 
 /**returns true if the integer is between 0 and 6 inclusive
@@ -329,6 +336,9 @@ int get_section(int max){
 
 
 int upper_entry(int * dice, int * section){
+    if(section_is_full(6, section)){
+        return 1;
+    }
     printf("Place dice into:\n1) Ones\n2) Twos\n3) Threes\n4) Fours\n5) Fives\n6) Sixes\n\n");
     //get selection
     int selection = get_section(6);
@@ -345,6 +355,9 @@ int upper_entry(int * dice, int * section){
 
 
 int lower_entry(int * dice,int * section){
+    if(section_is_full(7, section)){
+        return 1;
+    }
     printf("1) Three of a Kind\n2) Four of a Kind\n3) Small Straight\n4) Large Strait\n5) Full House\n6) Yahtzee\n7) Chance:\n\n");
     //get selection
     int selection = get_section(7) - '0';
@@ -414,12 +427,12 @@ int main(int argc, char ** argv){
 
     int selection = 0;
     int z;
-    for(z = 0; z < 10; z++){
+    while(!game_over(upper_section, lower_section)){
         turn(dice);
         printf("Place dice into:\n1) Upper Section\n2) Lower Section\n\n");
         selection = get_section(2);
         if(selection == 1){
-            upper_entry(dice, upper_section);
+             upper_entry(dice, upper_section);
         }else if(selection == 2){
             lower_entry(dice, lower_section);
         }
