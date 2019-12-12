@@ -86,7 +86,6 @@ int sum_array(int size, int * arr){
             sum += arr[i];
         }
     }
-    printf("new Sum = %d\n", sum);
     return sum;
 }
 
@@ -378,15 +377,6 @@ int lower_entry(int * dice,int * section){
     //get selection
     int selection = get_section(7);
     int idx = selection-1;
-
-    int i;
-    for (i = 0; i < 7; i++){
-        printf("%d  ", section[i]);
-
-    }
-            printf("\n");
-
-
 
     if(section[idx] >= 0){//ask until blank space is found
         printf("That selection has already been made.\n");
