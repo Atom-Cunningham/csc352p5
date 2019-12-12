@@ -289,14 +289,12 @@ int reroll(int * dice){
     int rerolls = 0;
     int idx;
     printf("Which dice to reroll? ");
-    fgets(in, 100, stdin);
+    fgets(in, 64, stdin);
     printf("\n");                               //get user input
-    for(i = 0; i < 100 && rerolls < 6; i++){    //while in str bounds, and have die left to reroll
+    for(i = 0; i < 64 && rerolls < 6; i++){    //while in str bounds, and have die left to reroll
         idx = in[i] - '0';                  
         if(idx == 0){return 1;}                 //0 breaks out
         idx--;                                  //player refers to idx 0 as 1 ect
-        
-        printf("idx before is_valid = %d\n",idx);
         if(is_valid_die_idx(idx)){              //check idx is valid index
             printf("idx = %d\n", idx);
             rerolls++;                           
@@ -352,7 +350,7 @@ int upper_entry(int * dice, int * section){
 int lower_entry(int * dice,int * section){
     printf("1) Three of a Kind\n2) Four of a Kind\n3) Small Straight\n4) Large Strait\n5) Full House\n6) Yahtzee\n7) Chance:\n\n");
     //get selection
-    int selection = get_section(7);
+    int selection = get_section(7) - '0';
     int idx = selection-1;
     while(section[idx] < 0){//ask until blank space is found
         printf("That selection has already been made.\n");
