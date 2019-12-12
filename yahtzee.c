@@ -1,3 +1,9 @@
+/**author adam cunningham
+ * csc 352 project 5 fall19
+ * this is a solitare implementation of yahtzee
+ * check the rules on wikipedia
+ * 
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
