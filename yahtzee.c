@@ -261,6 +261,15 @@ void print_entry_empty(char* label, int buffer){
     }
 }
 
+/**returns 35 if the upper section is full
+ */
+int get_upper_section_bonus(int * section){
+    if(section_is_full(6, section)){
+        return 35;
+    }
+    return 0;
+}
+
 /**prints out a section, with its labels and current entries
  */
 void print_section(int size, char ** labels, int * section){
@@ -273,8 +282,13 @@ void print_section(int size, char ** labels, int * section){
         }else{
             print_entry_empty(labels[i], buffer);
         }
-    }printf("\n\n");
+    }printf("\n");
+    if (size == 6){
+        printf("Upper Section Bonus: %d\n", 
+                get_upper_section_bonus(section));
+    }
 }
+
 
 
 
@@ -328,7 +342,6 @@ int get_section(int max){
     while(selection < 0 || selection > max){
         printf("Selection? "); 
         selection = read_int();
-        printf("selection read:%d\n", selection);
     }
     printf("\n\n");
     return selection;
@@ -416,6 +429,7 @@ int main(int argc, char ** argv){
     //seed random
     srand(time(0));
 
+    int curr_score = 0;
     //create necessary arrays
     int dice[5];
     char * upper_labels[6] = {"Ones:","Twos:","Threes:","Fours:","Fives:","Sixes:"};
@@ -439,20 +453,22 @@ int main(int argc, char ** argv){
         turn(dice);
         printf("Place dice into:\n1) Upper Section\n2) Lower Section\n\n");
         selection = get_section(2);
-        if(selection == 1){
-             upper_entry(dice, upper_section);
-        }else if(selection == 2){
+        if(selection == 1 || section_is_full(6, lower_section)){
+            upper_entry(dice, upper_section);
+        }else if(selection == 2 || section_is_full(7, upper_section)){
             lower_entry(dice, lower_section);
         }
 
         //display current total
-        printf("Your score so far is: %d\n\n",
-              (sum_array(6, upper_section) 
-            +  sum_array(7, lower_section)));
+        curr_score = (sum_array(6, upper_section) 
+            +  sum_array(7, lower_section)
+            +  get_upper_section_bonus(upper_section));
+        printf("Your score so far is: %d\n\n", curr_score);
         print_section(6, upper_labels, upper_section);
         print_section(7, lower_labels, lower_section);
         
     }
+    printf("\nYour final score is: %d\n", curr_score);
     return 0;
 }
 
