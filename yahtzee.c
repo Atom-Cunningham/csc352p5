@@ -17,7 +17,7 @@ int print_int_array(int size, int dice[], int attempt);
  * returns 0
  */
 int turn(int dice[]){
-    read_roll_nodrvr(6, dice);
+    read_roll_nodrvr(5, dice);
     int i;
     for(i = 0; i < 3; i++){
         print_int_array(5, dice, i);
@@ -42,7 +42,7 @@ int game_over(int size, int * section){
 /**returns true if the integer is between 0 and 6 inclusive
  */
 int is_valid_die_idx(int die){
-    return die >= 0 && die <= 5;
+    return die >= 0 && die <= 4;
 }
 
 /***********************
@@ -212,22 +212,21 @@ int read_roll_nodrvr(int size, int dice[]){
  * returns 0
  */
 int print_int_array(int size, int dice[], int attempt){
-    char * count = "";
+    char * count = " ";
     if(attempt == 1){
-        count = "second";
+        count = "second ";
     }
     if (attempt == 2){
-        count = "third";
+        count = "third ";
     }
-    printf("Your %s roll:\n\n", count);
+    printf("Your %sroll:\n\n", count);
 
     int i;
-    for(i = 0; i < size-1; i++){
+    for(i = 0; i < size; i++){
         printf("%d ", dice[i]);
     }
     //print last die with newline
-    i++;
-    printf("%d\n\n", dice[i]);
+    printf("\n\n");
 
     return 0;
 }
