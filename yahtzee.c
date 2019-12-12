@@ -296,10 +296,8 @@ int reroll(int * dice){
         if(idx == 0){return 1;}                 //0 breaks out
         idx--;                                  //player refers to idx 0 as 1 ect
         if(is_valid_die_idx(idx)){              //check idx is valid index
-            printf("idx = %d\n", idx);
             rerolls++;                           
-            dice[idx] = get_random_die();       //reset@ idx
-            printf("idx after get random die = %d\n",idx);
+            dice[idx] = get_random_die();       //reroll@ idx
         }
     }
     return 0;
