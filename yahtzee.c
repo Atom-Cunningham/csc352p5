@@ -22,6 +22,7 @@ int turn(int dice[]){
     for(i = 0; i < 2; i++){
         print_int_array(5, dice, i);
         if(reroll(dice)){          //user input of 0 returns 1
+            print_int_array(5, dice, 3);
             return 0;              //to break out
         }    
     }print_int_array(5, dice, 2);
@@ -228,6 +229,9 @@ int print_int_array(int size, int dice[], int attempt){
     }
     if (attempt == 2){
         count = "third ";
+    }
+    if (attempt == 3{
+        count = "final ";
     }
     printf("Your %sroll:\n\n", count);
 
