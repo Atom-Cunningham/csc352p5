@@ -19,14 +19,15 @@ int print_int_array(int size, int dice[], int attempt);
 int turn(int dice[]){
     read_roll_nodrvr(5, dice);
     int i;
-    for(i = 0; i < 3; i++){
+    for(i = 0; i < 2; i++){
         print_int_array(5, dice, i);
         if(reroll(dice)){          //user input of 0 returns 1
             return 0;              //to break out
         }    
-    }print_int_array(5, dice, i);
+    }print_int_array(5, dice, 2);
     return 0;
 }
+
 
 /**returns a 1 if all categories in the scoring section are non-zero
  */
@@ -66,16 +67,18 @@ int get_sum_of_dicetype(int num, int * dice){
     return sum;
 }
 
-/**returns the sum of the integers in an array
+/**returns the sum of the positive integers in an array
  * takes the array size and the array
  */
 int sum_array(int size, int * arr){
     int i;
     int sum = 0;
     for(i = 0; i < size; i++){
-        sum += arr[i];
-        printf("new Sum = %d\n", sum);
+        if (arr[i] > 0){
+            sum += arr[i];
+        }
     }
+    printf("new Sum = %d\n", sum);
     return sum;
 }
 
@@ -328,11 +331,19 @@ int get_section(int max){
     return selection;
 }
 
+
 int upper_entry(int * dice, int * section){
     printf("Place dice into:\n1) Ones\n2) Twos\n3) Threes\n4) Fours\n5) Fives\n6) Sixes\n\n");
     //get selection
     int selection = get_section(6);
-    section[selection-1] = get_sum_of_dicetype(selection, dice);//cardinal to idx
+    int idx = selection-1;
+    while(section[idx] < 0){//ask until blank space is found
+        printf("That selection has already been made.\n");
+        selection = get_section(6);
+        idx = selection-1;
+    }
+
+    section[idx] = get_sum_of_dicetype(selection, dice);//cardinal to idx
     printf("selection %d set to %d", selection, section[selection]);
     return 0;
 }
@@ -342,7 +353,46 @@ int lower_entry(int * dice,int * section){
     printf("1) Three of a Kind\n2) Four of a Kind\n3) Small Straight\n4) Large Strait\n5) Full House\n6) Yahtzee\n7) Chance:\n\n");
     //get selection
     int selection = get_section(7);
-    
+    int idx = selection-1;
+    while(section[idx] < 0){//ask until blank space is found
+        printf("That selection has already been made.\n");
+        selection = get_section(7);
+        idx = selection-1;
+    }
+    switch (selection)
+    {
+    case 1:
+        //three of a Kind
+        section[idx] = x_of_a_kind(3, dice);
+        break;
+    case 2:
+        //four of a Kind
+        section[idx] = x_of_a_kind(4, dice);
+        break;
+    case 3:
+        //small straight
+        section[idx] = straight(4, dice);
+        break;
+    case 4:
+        //large straight
+        section[idx] = straight(5, dice);
+        break;
+    case 5:
+        //full house
+        section[idx] = full_house(dice);
+        break;
+    case 6:
+        //yahtzee
+        section[idx] = x_of_a_kind(5, dice);
+        break;
+    case 7:
+        //chance
+        section[idx] = sum_array(5, dice);
+        break;           
+    default:
+        printf("error: probably checking char case, not int");
+        break;
+    }
     return 0;
 }
 
