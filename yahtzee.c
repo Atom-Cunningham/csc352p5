@@ -360,7 +360,7 @@ int lower_entry(int * dice,int * section){
     }
     printf("1) Three of a Kind\n2) Four of a Kind\n3) Small Straight\n4) Large Strait\n5) Full House\n6) Yahtzee\n7) Chance:\n\n");
     //get selection
-    int selection = get_section(7) - '0';
+    int selection = get_section(7);
     int idx = selection-1;
 
     int i;
@@ -371,7 +371,7 @@ int lower_entry(int * dice,int * section){
             printf("\n");
 
 
-            
+
     while(section[idx] >= 0){//ask until blank space is found
         printf("That selection has already been made.\n");
         selection = get_section(7);
