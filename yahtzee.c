@@ -338,7 +338,6 @@ int upper_entry(int * dice, int * section){
         selection = get_section(6);
         idx = selection-1;
     }
-
     section[idx] = get_sum_of_dicetype(selection, dice);//cardinal to idx
     printf("selection %d set to %d", selection, section[selection]);
     return 0;
