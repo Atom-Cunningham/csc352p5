@@ -111,6 +111,7 @@ int x_of_a_kind(int num, int * dice){
             if(count == 5){         //yahtzee
                 return 50;
             }
+            printf("count %dof a kind %d\n", count,i);
             return sum_array(5, dice);
         }
     }
@@ -230,7 +231,7 @@ int print_int_array(int size, int dice[], int attempt){
     if (attempt == 2){
         count = "third ";
     }
-    if (attempt == 3{
+    if (attempt == 3){
         count = "final ";
     }
     printf("Your %sroll:\n\n", count);
