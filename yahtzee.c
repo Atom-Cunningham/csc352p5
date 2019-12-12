@@ -349,7 +349,7 @@ int lower_entry(int * dice,int * section){
     //get selection
     int selection = get_section(7) - '0';
     int idx = selection-1;
-    while(section[idx] < 0){//ask until blank space is found
+    while(section[idx] >= 0){//ask until blank space is found
         printf("That selection has already been made.\n");
         selection = get_section(7);
         idx = selection-1;
