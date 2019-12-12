@@ -98,12 +98,11 @@ int sum_array(int size, int * arr){
 int x_of_a_kind(int num, int * dice){
     int count;
     int curr;                                //current die
-    int i;
     int j;
     for(curr = 1; curr <= 6; curr++){        //loop through die possibilities
         count = 0;
         for(j = 0; j < 5; j++){     //loop through dice
-            if(dice[j] == i){
+            if(dice[j] == curr){
                 count++;
             }    
         }
@@ -111,7 +110,7 @@ int x_of_a_kind(int num, int * dice){
             if(count == 5){         //yahtzee
                 return 50;
             }
-            printf("count %dof a kind %d\n", count,i);
+            printf("count %dof a kind %d\n", count,curr);
             return sum_array(5, dice);
         }
     }
